@@ -9,23 +9,23 @@ data <- read.csv(datafile, stringsAsFactors=FALSE,row.names=NULL)
 np <- ifelse(!is.na(data$case_group), paste(data$case_group," (",data$p_val,")",sep=""), NA)
 
 ## The rest of the columns in the table. 
-tabletext <- cbind(c("Follow-up\ntime window\n",data$blah),
+tabletext <- cbind(c("Follow-up\n",data$blah),
                    c("Semaglutide\ncohort\n",data$case_group),
                    c("Non-GLP1R agonist\n anti-diabetes medications cohort\n",data$control_group),
                    c("        HR (95% CI)",data$CI)
 )
 
 
-pdf(file.path(workdir,"Figure3.pdf"),  onefile=FALSE, width=10, height=5.5)
+pdf(file.path(workdir,"Figure3.pdf"),  onefile=FALSE, width=11, height=5)
 
 forestplot(labeltext=tabletext, 
            graphwidth = unit(30, 'mm'),
            graph.pos=4,
-           is.summary=c(TRUE,TRUE, rep(FALSE, 4),TRUE,rep(FALSE,8)),
+           is.summary=c(TRUE,TRUE, rep(FALSE, 3),TRUE,rep(FALSE,6)),
            mean=c(NA,data$AOR), 
            lower=c(NA,data$down), upper=c(NA,data$up),
          
-           title ="Incident and recurrent CUD diagnoses in patients with type 2 diabetes\ncomparison between propensity-score matched cohorts at different follow-up time windows", 
+           title ="Outcomes in patients with type 2 diabetes at different follow-up\n", 
            xticks=log(c(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,2,3,4,5,6,7,8,9,10)),
            
            xlog = TRUE,
@@ -34,7 +34,7 @@ forestplot(labeltext=tabletext,
            #### Add horizontal lines on the plot
            hrzl_lines=list("2" = gpar(lwd = 0.9, lty=1, col='black'),
                            "3" = gpar(lwd = 0.9, lty='longdash', col='black'),
-                           "8" = gpar(lwd = 0.9, lty='longdash', col='black')
+                           "7" = gpar(lwd = 0.9, lty='longdash', col='black')
            ),
           
            #txt_gp=fpTxtGp(label=list(gpar(cex=1.5,fontface='bold'),gpar(cex=1.5),gpar(cex=1.5),gpar(cex=1.5),gpar(cex=1.5),gpar(cex=1.5),gpar(cex=1.5)),
